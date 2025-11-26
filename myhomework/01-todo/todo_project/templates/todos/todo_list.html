@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p><a href="{% url 'todos:create' %}">Create new TODO</a></p>
+<ul>
+  {% for todo in todos %}
+    <li class="todo">
+      <strong class="{% if todo.resolved %}resolved{% endif %}">{{ todo.title }}</strong>
+      {% if todo.due_date %} - due {{ todo.due_date }}{% endif %}
+      <div>{{ todo.description }}</div>
+      <div>
+        <a href="{% url 'todos:edit' todo.pk %}">Edit</a> |
+        <a href="{% url 'todos:delete' todo.pk %}">Delete</a> |
+        <form action="{% url 'todos:toggle_resolved' todo.pk %}" method="post" style="display:inline">
+          {% csrf_token %}
+          <button type="submit">{% if todo.resolved %}Unresolve{% else %}Mark resolved{% endif %}</button>
+        </form>
+      </div>
+    </li>
+  {% empty %}
+    <li>No TODOs yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
