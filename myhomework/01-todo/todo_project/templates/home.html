@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Welcome to the Simple TODO app</h2>
+  <p>Quick links:</p>
+  <ul>
+    <li><a href="{% url 'todos:list' %}">View TODOs</a></li>
+    <li><a href="/admin/">Admin</a></li>
+  </ul>
+{% endblock %}
